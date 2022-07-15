@@ -21,7 +21,7 @@ webpack webpack-cli terser-webpack-plugin webpack-merge html-webpack-plugin copy
 ts-loader style-loader css-loader \
 @types/chrome @types/react @types/react-dom \
 eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
-styled-jsx tailwindcss postcss autoprefixer
+tailwindcss postcss autoprefixer
 
 # prettier
 npm i -D prettier eslint-config-prettier
