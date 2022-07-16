@@ -1,22 +1,40 @@
 import React, { useRef } from 'react'
+import { randomId } from '../utils/uuid'
+import { Task } from '../utils/types'
 
 type Props = {
-  onAdd: (taskName: string) => void
+  onAdd: (taskName: Task) => void
 }
 
 const TaskInput = ({ onAdd }: Props) => {
   const inputEl = useRef<HTMLInputElement>(null)
+  const addTask = (taskName: string) => {
+    const task: Task = {
+      id: randomId(),
+      name: inputEl.current.value,
+      timer: {
+        totalSeconds: 0,
+        timeStatus: 'inProgress',
+      },
+    }
+    onAdd(task)
+  }
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.nativeEvent.isComposing || e.key !== 'Enter') return
-    console.log('onEnter', inputEl.current.value)
-    onAdd(inputEl.current.value)
+    addTask(inputEl.current.value)
     inputEl.current.value = ''
   }
   return (
     <div>
       <label>
         Task:
-        <input type="text" name="name" onKeyDown={handleKeyDown} ref={inputEl} />
+        <input
+          type="text"
+          name="name"
+          placeholder="Input your task"
+          onKeyDown={handleKeyDown}
+          ref={inputEl}
+        />
       </label>
     </div>
   )

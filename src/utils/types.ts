@@ -1,11 +1,11 @@
-type Task = {
+export type Task = {
   id: string
   name: string
   timer: Timer
 }
 
 type Timer = {
-  total: string
+  totalSeconds: number
   timeStatus: TimerStatus
 }
 

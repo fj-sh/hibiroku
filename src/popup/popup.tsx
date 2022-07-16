@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './popup.css'
 import TaskInput from '../components/TaskInput'
+import { Task } from '../utils/types'
 
 const App = () => {
-  const [tasks, setTasks] = useState<string[]>([])
-  const handleAddTask = (taskInput: string) => {
+  const [tasks, setTasks] = useState<Task[]>([])
+  const handleAddTask = (taskInput: Task) => {
     const updatedTasks = [...tasks, taskInput]
     setTasks(updatedTasks)
   }
@@ -13,7 +14,7 @@ const App = () => {
     <>
       <TaskInput onAdd={handleAddTask} />
       {tasks.map((task) => (
-        <>{task}</>
+        <>{task.name}</>
       ))}
     </>
   )
