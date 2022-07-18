@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
-import { randomId } from '../utils/uuid'
-import { Task } from '../utils/types'
+import { randomId } from '../lib/uuid'
+import { Task } from '../lib/types'
 
 type Props = {
   onAdd: (taskName: Task) => void
@@ -12,10 +12,8 @@ const TaskInput = ({ onAdd }: Props) => {
     const task: Task = {
       id: randomId(),
       name: inputEl.current.value,
-      timer: {
-        totalSeconds: 0,
-        timeStatus: 'inProgress',
-      },
+      status: 'Stopped',
+      totalSeconds: 0,
     }
     onAdd(task)
     inputEl.current.value = ''

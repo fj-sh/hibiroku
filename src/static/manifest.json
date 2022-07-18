@@ -13,7 +13,7 @@
     "default_title": "Daily Time Management",
     "default_icon": "icon.png"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "alarms"],
   "options_page": "options.html",
   "background": {
     "service_worker": "background.js"
