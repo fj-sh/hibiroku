@@ -1,4 +1,15 @@
-import { Task } from './types'
+import { Task, TimerStatus } from './types'
+
+export const getTasksFromStorage = async (): Promise<Task[]> => {
+  const res = await chrome.storage.local.get(['tasks'])
+  return res.tasks as Task[]
+}
+
+export const getTaskFromStorage = async (taskId: string) => {
+  const tasksFromStorage = await getTasksFromStorage()
+  if (tasksFromStorage.length === 0) return undefined
+  return tasksFromStorage.filter((task) => task.id === taskId)[0]
+}
 
 export const persistTasksInChromeStorage = (tasks: Task[]) => {
   chrome.storage.local.set(
@@ -6,16 +17,20 @@ export const persistTasksInChromeStorage = (tasks: Task[]) => {
       tasks: tasks,
     },
     () => {
-      console.log('[tasks.ts#persistTasksInChromeStorage] Stored Tasks: ', tasks)
+      console.log('Saved task to Chrome local storage:', tasks)
     }
   )
 }
 
-export const toggleTaskStatus = (task: Task): Task => {
-  return {
+export const toggleTaskStatus = async (taskId: string): Promise<TimerStatus> => {
+  const task = await getTaskFromStorage(taskId)
+  const updatedStatus: TimerStatus = task.status === 'inProgress' ? 'Stopped' : 'inProgress'
+  const updatedTask = {
     ...task,
-    status: task.status === 'inProgress' ? 'Stopped' : 'inProgress',
+    status: updatedStatus,
   }
+  updateTaskInChromeStorage(updatedTask)
+  return updatedStatus
 }
 
 export const updateTaskInChromeStorage = (task: Task) => {
@@ -37,7 +52,6 @@ export const addOneSecondToTasksInProgress = () => {
     const storedTasks: Task[] = res.tasks ?? []
     if (storedTasks.length === 0) return
     const updatedTasks = storedTasks.map((storedTask) => {
-      console.log('storedTasks in map', storedTask)
       if (!('status' in storedTask)) return
       if (storedTask.status === 'inProgress') {
         return { ...storedTask, totalSeconds: storedTask.totalSeconds + 1 }
@@ -47,10 +61,4 @@ export const addOneSecondToTasksInProgress = () => {
     })
     persistTasksInChromeStorage(updatedTasks)
   })
-}
-
-export const getTasksFromStorage = async () => {
-  const storedTasks = await chrome.storage.local.get(['tasks'])
-  console.log('getTasksFromStorage', storedTasks)
-  return storedTasks
 }

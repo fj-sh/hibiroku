@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Task, TimerStatus } from '../lib/types'
 import { secondsToHms } from '../lib/timer'
-import { toggleTaskStatus, updateTaskInChromeStorage } from '../lib/tasks'
+import { getTaskFromStorage, toggleTaskStatus } from '../lib/tasks'
 
 type Props = {
   task: Task
@@ -9,41 +9,31 @@ type Props = {
 
 const TaskCard = ({ task }: Props) => {
   const [seconds, setSeconds] = useState<number>(0)
-  const [startTime, setStartTime] = useState<number>(0)
-  const [stopTime, setStopTime] = useState<number>(0)
-  const [inProgressTime, setInProgressTime] = useState<number>(0)
-  const [timeStatus, setTimerStatus] = useState<TimerStatus>('Stopped')
+  const [status, setStatus] = useState<TimerStatus>('Stopped')
   let timer = undefined
   const updateSeconds = () => {
-    timer = setInterval(() => {
-      chrome.storage.local.get('timer', (res) => {
-        setInProgressTime(res.timer)
-      })
-      let updatedSecond = 0
-      if (timeStatus === 'inProgress') {
-        updatedSecond = seconds + (inProgressTime - startTime)
-        setSeconds((seconds) => updatedSecond)
-      } else if (timeStatus === 'Stopped') {
-        updatedSecond = seconds + (inProgressTime - startTime)
-      }
+    timer = setInterval(async () => {
+      const storedTask = await getTaskFromStorage(task.id)
+      setSeconds(storedTask.totalSeconds)
     }, 1000)
   }
 
   useEffect(() => {
     updateSeconds()
     return () => clearInterval(timer)
-  }, [inProgressTime])
+  }, [])
 
   const handleToggleStatus = (event: any, task: Task) => {
-    const updatedTask = toggleTaskStatus(task)
-    updateTaskInChromeStorage(updatedTask)
+    toggleTaskStatus(task.id).then((updatedStatus) => {
+      setStatus(updatedStatus)
+    })
   }
 
   return (
     <>
       {task.name}
       <button onClick={(event) => handleToggleStatus(event, task)}>
-        {timeStatus === 'inProgress' ? <>Stop</> : <>Start</>}
+        {status === 'inProgress' ? <>Stop</> : <>Start</>}
       </button>
       {secondsToHms(seconds)}
       <br />
