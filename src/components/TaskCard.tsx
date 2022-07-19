@@ -5,9 +5,10 @@ import { getTaskFromStorage, resetTimer, toggleTaskStatus } from '../lib/tasks'
 
 type Props = {
   task: Task
+  onDelete: (taskId: string) => void
 }
 
-const TaskCard = ({ task }: Props) => {
+const TaskCard = ({ task, onDelete }: Props) => {
   const [seconds, setSeconds] = useState<number>(0)
   const [status, setStatus] = useState<TimerStatus>('Stopped')
   let timer = undefined
@@ -38,6 +39,13 @@ const TaskCard = ({ task }: Props) => {
     })
   }
 
+  const handleDeleteTask = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    taskId: string
+  ) => {
+    onDelete(taskId)
+  }
+
   return (
     <>
       {task.name}
@@ -46,6 +54,7 @@ const TaskCard = ({ task }: Props) => {
       </button>
       {secondsToHms(seconds)}
       <button onClick={(event) => handleResetTimer(event, task)}>Reset</button>
+      <button onClick={(event) => handleDeleteTask(event, task.id)}>Delete</button>
       <br />
     </>
   )

@@ -53,7 +53,11 @@ export const updateTaskInChromeStorage = (task: Task) => {
   })
 }
 
-export const deleteTaskInChromeStorage = (taskId: string) => {}
+export const deleteTaskInChromeStorage = async (taskId: string) => {
+  const storedTasks = await getTasksFromStorage()
+  const updatedTasks = storedTasks.filter((storedTask) => storedTask.id !== taskId)
+  persistTasksInChromeStorage(updatedTasks)
+}
 
 export const addOneSecondToTasksInProgress = () => {
   chrome.storage.local.get(['tasks'], (res) => {

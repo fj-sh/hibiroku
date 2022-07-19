@@ -6,8 +6,8 @@ import { Task } from '../lib/types'
 import TaskCard from '../components/TaskCard'
 import {
   addTaskInChromeStorage,
+  deleteTaskInChromeStorage,
   getTasksFromStorage,
-  persistTasksInChromeStorage,
 } from '../lib/tasks'
 
 const App = () => {
@@ -25,6 +25,11 @@ const App = () => {
     updateTasksByStorage()
   }
 
+  const handleDeleteTask = async (taskId: string) => {
+    await deleteTaskInChromeStorage(taskId)
+    updateTasksByStorage()
+  }
+
   useEffect(() => {
     const getTasks = async () => {
       return await getTasksFromStorage()
@@ -36,7 +41,10 @@ const App = () => {
   return (
     <>
       <TaskInput onAdd={handleAddTask} />
-      {tasks.length !== 0 && tasks.map((task, index) => <TaskCard task={task} key={index} />)}
+      {tasks.length !== 0 &&
+        tasks.map((task, index) => (
+          <TaskCard task={task} onDelete={handleDeleteTask} key={index} />
+        ))}
     </>
   )
 }
