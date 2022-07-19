@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskInput Create snapshot 1`] = `
+<div>
+  <label>
+    Register a Task:
+    <input
+      name="taskName"
+      onKeyDown={[Function]}
+      placeholder="Input your task"
+      type="text"
+    />
+    <button
+      onClick={[Function]}
+    >
+      Add
+    </button>
+  </label>
+</div>
+`;

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskCard Create snapshot 1`] = `
+Array [
+  "task",
+  <button
+    onClick={[Function]}
+  >
+    Start
+  </button>,
+  "00:00:00",
+  <button
+    onClick={[Function]}
+  >
+    Reset
+  </button>,
+  <button
+    onClick={[Function]}
+  >
+    Delete
+  </button>,
+  <br />,
+]
+`;
