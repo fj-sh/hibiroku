@@ -31,12 +31,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const getTasks = async () => {
-      return await getTasksFromStorage()
-    }
-
-    const storedTasks = getTasks()
-    console.log('useEffect', storedTasks)
+    updateTasksByStorage()
   }, [])
   return (
     <>
