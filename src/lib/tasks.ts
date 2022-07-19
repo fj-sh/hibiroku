@@ -62,3 +62,10 @@ export const addOneSecondToTasksInProgress = () => {
     persistTasksInChromeStorage(updatedTasks)
   })
 }
+
+export const resetTimer = async (taskId: string) => {
+  const task = await getTaskFromStorage(taskId)
+  task.totalSeconds = 0
+  updateTaskInChromeStorage(task)
+  return task
+}

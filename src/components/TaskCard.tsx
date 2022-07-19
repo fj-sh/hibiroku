@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Task, TimerStatus } from '../lib/types'
 import { secondsToHms } from '../lib/timer'
-import { getTaskFromStorage, toggleTaskStatus } from '../lib/tasks'
+import { getTaskFromStorage, resetTimer, toggleTaskStatus } from '../lib/tasks'
 
 type Props = {
   task: Task
@@ -23,9 +23,18 @@ const TaskCard = ({ task }: Props) => {
     return () => clearInterval(timer)
   }, [])
 
-  const handleToggleStatus = (event: any, task: Task) => {
+  const handleToggleStatus = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    task: Task
+  ) => {
     toggleTaskStatus(task.id).then((updatedStatus) => {
       setStatus(updatedStatus)
+    })
+  }
+
+  const handleResetTimer = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, task: Task) => {
+    resetTimer(task.id).then((task) => {
+      setSeconds(task.totalSeconds)
     })
   }
 
@@ -36,6 +45,7 @@ const TaskCard = ({ task }: Props) => {
         {status === 'inProgress' ? <>Stop</> : <>Start</>}
       </button>
       {secondsToHms(seconds)}
+      <button onClick={(event) => handleResetTimer(event, task)}>Reset</button>
       <br />
     </>
   )
