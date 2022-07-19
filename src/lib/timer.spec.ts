@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { secondsToHms } from './timer'
 
 describe('[function] secondsToHms', () => {

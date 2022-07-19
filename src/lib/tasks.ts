@@ -82,7 +82,13 @@ export const resetTimer = async (taskId: string) => {
   return task
 }
 
-export const resetAllTasks = () => {
-  const updatedTasks = []
+export const resetAllTasks = async () => {
+  const storedTasks = await getTasksFromStorage()
+  const updatedTasks = storedTasks.map((storedTask) => {
+    return {
+      ...storedTask,
+      totalSeconds: 0,
+    }
+  })
   persistTasksInChromeStorage(updatedTasks)
 }

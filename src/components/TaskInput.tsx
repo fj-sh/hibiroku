@@ -31,6 +31,7 @@ const TaskInput = ({ onAdd }: Props) => {
       <label>
         Register a Task:
         <input
+          data-testid="TaskInput-input"
           type="text"
           name="taskName"
           placeholder="Input your task"
