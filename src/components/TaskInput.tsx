@@ -10,6 +10,7 @@ const TaskInput = ({ onAdd }: Props) => {
   const inputEl = useRef<HTMLInputElement>(null)
 
   const handleAddTask = () => {
+    if (inputEl.current.value === '') return
     const task: Task = {
       id: randomId(),
       name: inputEl.current.value,

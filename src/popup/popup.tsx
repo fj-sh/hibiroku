@@ -4,11 +4,7 @@ import './popup.css'
 import TaskInput from '../components/TaskInput'
 import { Task } from '../lib/types'
 import TaskCard from '../components/TaskCard'
-import {
-  addTaskInChromeStorage,
-  deleteTaskInChromeStorage,
-  getTasksFromStorage,
-} from '../lib/tasks'
+import { addTaskInChromeStorage, deleteTaskInChromeStorage, resetAllTasks } from '../lib/tasks'
 
 const App = () => {
   const [tasks, setTasks] = useState<Task[]>([])
@@ -30,6 +26,11 @@ const App = () => {
     updateTasksByStorage()
   }
 
+  const handleAllReset = () => {
+    resetAllTasks()
+    updateTasksByStorage()
+  }
+
   useEffect(() => {
     updateTasksByStorage()
   }, [])
@@ -40,6 +41,7 @@ const App = () => {
         tasks.map((task, index) => (
           <TaskCard task={task} onDelete={handleDeleteTask} key={index} />
         ))}
+      <button onClick={handleAllReset}>All Reset</button>
     </>
   )
 }
