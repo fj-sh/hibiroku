@@ -33,6 +33,12 @@ export const toggleTaskStatus = async (taskId: string): Promise<TimerStatus> => 
   return updatedStatus
 }
 
+export const addTaskInChromeStorage = async (task: Task) => {
+  const tasks = await getTasksFromStorage()
+  const updatedTasks = [...tasks, task]
+  persistTasksInChromeStorage(updatedTasks)
+}
+
 export const updateTaskInChromeStorage = (task: Task) => {
   chrome.storage.local.get(['tasks'], (res) => {
     const storedTasks: Task[] = res.tasks ?? []
@@ -46,6 +52,8 @@ export const updateTaskInChromeStorage = (task: Task) => {
     persistTasksInChromeStorage(updatedTasks)
   })
 }
+
+export const deleteTaskInChromeStorage = (taskId: string) => {}
 
 export const addOneSecondToTasksInProgress = () => {
   chrome.storage.local.get(['tasks'], (res) => {

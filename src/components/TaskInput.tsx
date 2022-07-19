@@ -8,6 +8,7 @@ type Props = {
 
 const TaskInput = ({ onAdd }: Props) => {
   const inputEl = useRef<HTMLInputElement>(null)
+
   const handleAddTask = () => {
     const task: Task = {
       id: randomId(),
@@ -18,6 +19,7 @@ const TaskInput = ({ onAdd }: Props) => {
     onAdd(task)
     inputEl.current.value = ''
   }
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.nativeEvent.isComposing || e.key !== 'Enter') return
     handleAddTask()

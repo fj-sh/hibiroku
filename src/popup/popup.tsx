@@ -4,7 +4,11 @@ import './popup.css'
 import TaskInput from '../components/TaskInput'
 import { Task } from '../lib/types'
 import TaskCard from '../components/TaskCard'
-import { getTasksFromStorage, persistTasksInChromeStorage } from '../lib/tasks'
+import {
+  addTaskInChromeStorage,
+  getTasksFromStorage,
+  persistTasksInChromeStorage,
+} from '../lib/tasks'
 
 const App = () => {
   const [tasks, setTasks] = useState<Task[]>([])
@@ -16,9 +20,8 @@ const App = () => {
     })
   }
 
-  const handleAddTask = (taskInput: Task) => {
-    const updatedTasks = [...tasks, taskInput]
-    persistTasksInChromeStorage(updatedTasks)
+  const handleAddTask = async (task: Task) => {
+    await addTaskInChromeStorage(task)
     updateTasksByStorage()
   }
 
