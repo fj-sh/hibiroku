@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Task, TimerStatus } from '../lib/types'
 import { secondsToHms } from '../lib/timer'
 import { getTaskFromStorage, resetTimer, toggleTaskStatus } from '../lib/tasks'
+import './TaskCard.css'
 
 type Props = {
   task: Task
@@ -47,16 +48,28 @@ const TaskCard = ({ task, onDelete }: Props) => {
   }
 
   return (
-    <>
-      {task.name}
-      <button onClick={(event) => handleToggleStatus(event, task)}>
-        {status === 'inProgress' ? <>Stop</> : <>Start</>}
-      </button>
-      {secondsToHms(seconds)}
-      <button onClick={(event) => handleResetTimer(event, task)}>Reset</button>
-      <button onClick={(event) => handleDeleteTask(event, task.id)}>Delete</button>
-      <br />
-    </>
+    <div className="TaskCard_container">
+      <label className="TaskCard_task_status">
+        {status === 'inProgress' ? (
+          <div className="TaskCard_task_status_inProgress">In Progress</div>
+        ) : (
+          <div className="TaskCard_task_status_pending">Pending</div>
+        )}
+      </label>
+      <div className="TaskCard_task_name_seconds_wrapper">
+        <h2 className="TaskCard_task_name">{task.name}</h2>
+        <time className="TaskCard_task_seconds">{secondsToHms(seconds)}</time>
+      </div>
+
+      <div className="TaskCard_button_wrapper">
+        <button onClick={(event) => handleToggleStatus(event, task)}>
+          {status === 'inProgress' ? <>Stop</> : <>Start</>}
+        </button>
+
+        <button onClick={(event) => handleResetTimer(event, task)}>Reset</button>
+        <button onClick={(event) => handleDeleteTask(event, task.id)}>Delete</button>
+      </div>
+    </div>
   )
 }
 

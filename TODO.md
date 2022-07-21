@@ -1,8 +1,10 @@
 ## Task List
 
-- [ ] Setup test
-- [ ] Styling TaskInput Component
+- [x] Setup test
+- [x] Styling TaskInput Component
 - [x] initialize All by option.tsx
+- [] Implements Drag and Drop
+  - [easy-drag-and-drop](https://reactjsexample.com/you-should-focus-the-logics-of-your-app-not-dnd/)
 
 ## Hints
 

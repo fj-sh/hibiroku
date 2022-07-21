@@ -1,0 +1,43 @@
+.TaskInput_container {
+  width: 100%;
+  border-bottom: #dcdcdc;
+  margin: 0 0 2rem 0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.TaskInput_input {
+  padding: 10px;
+  margin: 10px;
+  height: 20px;
+  width: 350px;
+  border:1px solid #eaeaea;
+  border-radius: 10px;
+  outline:none;
+}
+
+.TaskInput_input:hover {
+  border-color: #a0a0a0 #b9b9b9 #b9b9b9 #b9b9b9;
+}
+
+.TaskInput_input:focus {
+  border-color:#4d90fe;
+}
+
+.TaskInput_button_add {
+  border-radius: 5px;
+  background: #1490f4;
+  border: 1px solid #f2f2f2;
+  color: #f5f5f5;
+  cursor: default;
+  font-size: 14px;
+  font-weight: bold;
+  max-width: 60px;
+  padding: 0 16px;
+  height:36px;
+}
+
+.TaskInput_button_add:hover {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  background: #f8f8f8;
+  border: 1px solid #c6c6c6;
+  color: #222;
+}

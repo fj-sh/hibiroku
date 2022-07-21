@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { randomId } from '../lib/uuid'
 import { Task } from '../lib/types'
+import './TaskInput.css'
 
 type Props = {
   onAdd: (taskName: Task) => void
@@ -27,18 +28,20 @@ const TaskInput = ({ onAdd }: Props) => {
   }
 
   return (
-    <div>
+    <div className="TaskInput_container">
       <label>
-        Register a Task:
         <input
           data-testid="TaskInput-input"
           type="text"
           name="taskName"
-          placeholder="Input your task"
+          placeholder="Enter your task"
+          className="TaskInput_input"
           onKeyDown={handleKeyDown}
           ref={inputEl}
         />
-        <button onClick={handleAddTask}>Add</button>
+        <button onClick={handleAddTask} className="TaskInput_button_add">
+          Add
+        </button>
       </label>
     </div>
   )

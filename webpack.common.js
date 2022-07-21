@@ -19,19 +19,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        // use: ['style-loader', 'css-loader'],
-        // Use CSS modules
-        // https://blog.logrocket.com/how-to-configure-css-modules-webpack/
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: true,
-            },
-          },
-        ],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
