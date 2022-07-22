@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Task, TimerStatus } from '../lib/types'
 import { secondsToHms } from '../lib/timer'
-import { getTaskFromStorage, resetTimer, toggleTaskStatus } from '../lib/tasks'
+import { getCurrentStatus, getTaskFromStorage, resetTimer, toggleTaskStatus } from '../lib/tasks'
 import './TaskCard.css'
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 const TaskCard = ({ task, onDelete }: Props) => {
   const [seconds, setSeconds] = useState<number>(0)
   const [status, setStatus] = useState<TimerStatus>('Stopped')
+
   let timer = undefined
   const updateSeconds = () => {
     timer = setInterval(async () => {
@@ -20,7 +21,12 @@ const TaskCard = ({ task, onDelete }: Props) => {
     }, 1000)
   }
 
+  const setCurrentStatus = (taskId: string) => {
+    getCurrentStatus(taskId).then((status) => setStatus(status))
+  }
+
   useEffect(() => {
+    setCurrentStatus(task.id)
     updateSeconds()
     return () => clearInterval(timer)
   }, [])
@@ -44,6 +50,7 @@ const TaskCard = ({ task, onDelete }: Props) => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     taskId: string
   ) => {
+    clearInterval(timer)
     onDelete(taskId)
   }
 

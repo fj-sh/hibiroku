@@ -17,7 +17,7 @@ export const persistTasksInChromeStorage = (tasks: Task[]) => {
       tasks: tasks,
     },
     () => {
-      console.log('Saved task to Chrome local storage:', tasks)
+      /* [Callback] Task saved in Chrome local storage. */
     }
   )
 }
@@ -31,6 +31,11 @@ export const toggleTaskStatus = async (taskId: string): Promise<TimerStatus> => 
   }
   updateTaskInChromeStorage(updatedTask)
   return updatedStatus
+}
+
+export const getCurrentStatus = async (taskId: string): Promise<TimerStatus> => {
+  const task = await getTaskFromStorage(taskId)
+  return task.status
 }
 
 export const addTaskInChromeStorage = async (task: Task) => {
