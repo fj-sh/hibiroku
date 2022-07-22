@@ -62,12 +62,29 @@ const TaskCard = ({ task, onDelete }: Props) => {
       </div>
 
       <div className="TaskCard_button_wrapper">
-        <button onClick={(event) => handleToggleStatus(event, task)}>
+        <button
+          className={
+            status === 'inProgress'
+              ? 'TaskCard_button TaskCard_button_stop'
+              : 'TaskCard_button TaskCard_button_start'
+          }
+          onClick={(event) => handleToggleStatus(event, task)}
+        >
           {status === 'inProgress' ? <>Stop</> : <>Start</>}
         </button>
 
-        <button onClick={(event) => handleResetTimer(event, task)}>Reset</button>
-        <button onClick={(event) => handleDeleteTask(event, task.id)}>Delete</button>
+        <button
+          className="TaskCard_button TaskCard_button_reset"
+          onClick={(event) => handleResetTimer(event, task)}
+        >
+          Reset
+        </button>
+        <button
+          className="TaskCard_button TaskCard_button_delete"
+          onClick={(event) => handleDeleteTask(event, task.id)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   )
