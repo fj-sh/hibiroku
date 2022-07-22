@@ -38,9 +38,14 @@ export const getCurrentStatus = async (taskId: string): Promise<TimerStatus> => 
   return task.status
 }
 
+export const getCurrentSeconds = async (taskId: string): Promise<number> => {
+  const task = await getTaskFromStorage(taskId)
+  return task.totalSeconds
+}
+
 export const addTaskInChromeStorage = async (task: Task) => {
   const tasks = await getTasksFromStorage()
-  const updatedTasks = [...tasks, task]
+  const updatedTasks = Array.isArray(tasks) ? [...tasks, task] : [task]
   persistTasksInChromeStorage(updatedTasks)
 }
 
@@ -87,7 +92,7 @@ export const resetTimer = async (taskId: string) => {
   return task
 }
 
-export const resetAllTasks = async () => {
+export const resetAllTasks = async (): Promise<void> => {
   const storedTasks = await getTasksFromStorage()
   const updatedTasks = storedTasks.map((storedTask) => {
     return {

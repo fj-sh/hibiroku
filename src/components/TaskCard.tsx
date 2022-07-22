@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Task, TimerStatus } from '../lib/types'
 import { secondsToHms } from '../lib/timer'
-import { getCurrentStatus, getTaskFromStorage, resetTimer, toggleTaskStatus } from '../lib/tasks'
+import {
+  getCurrentSeconds,
+  getCurrentStatus,
+  getTaskFromStorage,
+  resetTimer,
+  toggleTaskStatus,
+} from '../lib/tasks'
 import './TaskCard.css'
 
 type Props = {
@@ -21,12 +27,17 @@ const TaskCard = ({ task, onDelete }: Props) => {
     }, 1000)
   }
 
+  const setCurrentSeconds = (taskId: string) => {
+    getCurrentSeconds(taskId).then((currentSecond) => setSeconds(currentSecond))
+  }
+
   const setCurrentStatus = (taskId: string) => {
     getCurrentStatus(taskId).then((status) => setStatus(status))
   }
 
   useEffect(() => {
     setCurrentStatus(task.id)
+    setCurrentSeconds(task.id)
     updateSeconds()
     return () => clearInterval(timer)
   }, [])
