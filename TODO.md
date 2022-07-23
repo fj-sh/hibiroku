@@ -3,8 +3,13 @@
 - [x] Setup test
 - [x] Styling TaskInput Component
 - [x] initialize All by option.tsx
-- [] Implements Drag and Drop
+- [ ] Implements Drag and Drop
   - [easy-drag-and-drop](https://reactjsexample.com/you-should-focus-the-logics-of-your-app-not-dnd/)
+  - [react-sortable-list](https://github.com/ThaddeusJiang/react-sortable-list)
+- [ ] Pomodoro & Breaking Timer
+- [ ] Web Connection Blocker
+- [ ] Download file separated by tab
+- [ ] Enabled to copy task name
 
 ## Hints
 

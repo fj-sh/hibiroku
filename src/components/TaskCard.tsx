@@ -61,6 +61,8 @@ const TaskCard = ({ task, onDelete }: Props) => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     taskId: string
   ) => {
+    const answer = window.confirm(`Delete "${task.name}". Are you sure?`)
+    if (!answer) return
     clearInterval(timer)
     onDelete(taskId)
   }

@@ -34,10 +34,11 @@ const a11yProps = (index: number) => {
 }
 
 interface BasicTabsProps {
-  timerChildren: JSX.Element
+  timer: JSX.Element
+  pomodoro: React.ReactNode
 }
 
-const BasicTabs = ({ timerChildren }: BasicTabsProps) => {
+const BasicTabs = ({ timer, pomodoro }: BasicTabsProps) => {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -54,10 +55,10 @@ const BasicTabs = ({ timerChildren }: BasicTabsProps) => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {timerChildren}
+        {timer}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        {pomodoro}
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three

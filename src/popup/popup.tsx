@@ -3,11 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './popup.css'
 import SimpleTabs from '../components/SimpleTabs'
 import Timer from '../components/Timer'
+import Pomodoro from '../components/Pomodoro'
 
 const App = () => {
   return (
     <>
-      <SimpleTabs timerChildren={<Timer />} />
+      <SimpleTabs timer={<Timer />} pomodoro={<Pomodoro />} />
     </>
   )
 }
